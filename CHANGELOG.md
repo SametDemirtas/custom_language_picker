@@ -9,3 +9,7 @@
 * Included 60+ languages with native names and flag emojis
 * Added extensive customization options for colors, styles, and behaviors
 * Implemented theme-aware design that adapts to app themes
+##  0.0.2 - Minor Improvements & Fixes
+  * Better Structure & Organization:
+* Fixed export issues and cleaned up unnecessary import paths.
+* Improved package structure for better modularity.
