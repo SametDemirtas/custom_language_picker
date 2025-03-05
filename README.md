@@ -1,7 +1,9 @@
 # Custom Language Picker
 
 A highly customizable language picker for Flutter applications with search functionality, favorites support, and multiple UI styles including dropdown, dialog, and Cupertino pickers.
-
+<p align="center">
+  <img src="screenshots/preview.png" width="300" alt="Preview">
+</p>
 ## Features
 
 - 🌎 Support for 60+ languages with native names and flag emojis
@@ -15,6 +17,11 @@ A highly customizable language picker for Flutter applications with search funct
 - 🔄 Simple callback system for language selection
 - 📱 Responsive design for different screen sizes
 
+<p align="center">
+  <img src="screenshots/dropdown.png" width="250" alt="Dropdown">
+  <img src="screenshots/dialog.png" width="250" alt="Dialog">
+  <img src="screenshots/cupertino.png" width="250" alt="Cupertino">
+</p>
 ## Getting Started
 
 Add the package to your `pubspec.yaml`:
