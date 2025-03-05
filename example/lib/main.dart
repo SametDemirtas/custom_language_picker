@@ -1,11 +1,8 @@
-import 'package:custom_language_picker/src/widgets/cupertino/custom_language_picker_cupertino.dart';
-import 'package:custom_language_picker/src/models/language.dart';
-import 'package:custom_language_picker/src/data/language_data.dart';
-import 'package:custom_language_picker/src/models/language_code.dart';
-import 'package:custom_language_picker/src/widgets/dropdown/language_picker_dropdown.dart';
-import 'package:custom_language_picker/src/widgets/dialog/custom_language_picker_dialog.dart';
-import 'package:flutter/material.dart';
+
+
+import 'package:custom_language_picker/custom_language_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp(key: Key('app')));
 

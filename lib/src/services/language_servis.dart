@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import '../../typedefs.dart';
-import '../data/language_data.dart';
-import '../models/language.dart';
-import '../models/language_code.dart';
+import 'package:custom_language_picker/typedefs.dart';
+import 'package:custom_language_picker/src/data/language_data.dart';
+import 'package:custom_language_picker/src/models/language.dart';
+import 'package:custom_language_picker/src/models/language_code.dart';
 
 /// Service to manage language selection and favorites
 class LanguageService extends ChangeNotifier {

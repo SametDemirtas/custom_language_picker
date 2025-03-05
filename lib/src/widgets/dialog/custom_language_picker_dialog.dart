@@ -2,9 +2,8 @@ import 'dart:ui';
 
 import 'package:custom_language_picker/src/models/language.dart';
 import 'package:flutter/material.dart';
-
-import '../../services/language_servis.dart';
-import '../../../typedefs.dart';
+import 'package:custom_language_picker/src/services/language_servis.dart';
+import 'package:custom_language_picker/typedefs.dart';
 /// Provides a modern language picker dialog with search and favorites
 class CustomLanguagePickerDialog extends StatefulWidget {
   /// Callback when a language is selected

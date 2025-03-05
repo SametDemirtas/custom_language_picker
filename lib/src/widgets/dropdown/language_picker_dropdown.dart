@@ -1,8 +1,8 @@
 import 'package:custom_language_picker/src/services/language_servis.dart';
 import 'package:flutter/material.dart';
-import '../../../typedefs.dart';
-import '../../models/language.dart';
-import '../../models/language_code.dart';
+import 'package:custom_language_picker/typedefs.dart';
+import 'package:custom_language_picker/src/models/language.dart';
+import 'package:custom_language_picker/src/models/language_code.dart';
 
 /// Provides a customizable [DropdownButton] for all languages with favorites support and search functionality
 class CustomLanguagePickerDropdown extends StatefulWidget {

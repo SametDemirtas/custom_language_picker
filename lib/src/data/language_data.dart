@@ -1,5 +1,5 @@
-import '../models/language.dart';
-import '../models/language_code.dart';
+import 'package:custom_language_picker/src/models/language.dart';
+import 'package:custom_language_picker/src/models/language_code.dart';
 
 /// Languages utility class with predefined languages
 class Languages {
