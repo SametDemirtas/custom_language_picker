@@ -195,7 +195,7 @@ class CustomLanguagePickerDropdownState extends State<CustomLanguagePickerDropdo
   final FocusNode _searchFocusNode = FocusNode();
   String _searchQuery = '';
   OverlayEntry? _overlayEntry;
-  bool _isOverlayVisible = false;
+
   final GlobalKey _dropdownKey = GlobalKey();
 
   @override
@@ -277,7 +277,6 @@ class CustomLanguagePickerDropdownState extends State<CustomLanguagePickerDropdo
 
     final RenderBox renderBox = _dropdownKey.currentContext!.findRenderObject() as RenderBox;
     final Size size = renderBox.size;
-    final Offset position = renderBox.localToGlobal(Offset.zero);
 
     _overlayEntry = OverlayEntry(
       builder: (context) {
@@ -329,7 +328,7 @@ class CustomLanguagePickerDropdownState extends State<CustomLanguagePickerDropdo
     );
 
     Overlay.of(context).insert(_overlayEntry!);
-    _isOverlayVisible = true;
+
 
     // Set focus to search field
     if (widget.isSearchable) {
@@ -345,7 +344,7 @@ class CustomLanguagePickerDropdownState extends State<CustomLanguagePickerDropdo
     if (_overlayEntry != null) {
       _overlayEntry!.remove();
       _overlayEntry = null;
-      _isOverlayVisible = false;
+
 
       // Clear search query
       if (_searchController.text.isNotEmpty) {

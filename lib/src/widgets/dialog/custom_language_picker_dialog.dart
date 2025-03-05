@@ -402,7 +402,6 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
   }
 
   Widget _buildLanguageList(ThemeData theme) {
-    final isSearchActive = _searchQuery.isNotEmpty;
 
     return ListView.separated(
       controller: _scrollController,
