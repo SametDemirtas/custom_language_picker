@@ -28,7 +28,7 @@ Add the package to your `pubspec.yaml`:
 
 
 dependencies:
-  custom_language_picker: ^0.1.0
+  custom_language_picker: ^0.2.0
   
   
   
