@@ -13,3 +13,20 @@
   * Better Structure & Organization:
 * Fixed export issues and cleaned up unnecessary import paths.
 * Improved package structure for better modularity.
+## 0.0.3 - Enhanced Dialog Customization
+
+ * Added extensive customization options for the dialog picker:
+
+ * Complete styling for header, search field, and favorites section
+ * Custom decorations for all dialog components (header, container, search, favorites)
+ * Customizable colors for text, backgrounds, borders, and icons
+ * Border radius and elevation controls for dialog and elements
+ * Custom highlighting for selected items and search results
+ * Added noResultsText to customize the empty results message
+
+* Improvements:
+
+ * Made customization capabilities consistent between dropdown and dialog components
+ * Better integration with app themes through improved fallback defaults
+ * Enhanced documentation and examples for new customization options
+ * Fixed search field focus handling and state management for favorites

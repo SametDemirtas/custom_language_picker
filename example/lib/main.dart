@@ -121,9 +121,37 @@ class _MyHomePageState extends State<MyHomePage> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
       ),
       child: CustomLanguagePickerDialog(
+        // Title customization
         titleText: 'Select your language',
         titlePadding: const EdgeInsets.all(16.0),
+        headerBackgroundColor: Colors.pink,
+        headerTextColor: Colors.white,
+        headerShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+        closeIcon: Icons.close_rounded,
+        closeIconColor: Colors.white,
+
+        // Dialog appearance
+        dialogBorderRadius: 16.0,
+        dialogElevation: 10.0,
+        dialogBackgroundColor: Colors.white,
+
+        // Search field customization
+        isSearchable: true,
+        searchHintText: 'Search...',
+        searchBackgroundColor: Colors.grey.shade50,
+        searchBorderColor: Colors.grey.shade300,
+        searchFocusedBorderColor: Colors.pinkAccent,
+        searchIconColor: Colors.pinkAccent,
+        searchClearIconColor: Colors.grey,
+        searchTextColor: Colors.black87,
         searchCursorColor: Colors.pinkAccent,
+        searchBorderRadius: 12.0,
         searchInputDecoration: const InputDecoration(
           hintText: 'Search...',
           prefixIcon: Icon(Icons.search),
@@ -131,7 +159,41 @@ class _MyHomePageState extends State<MyHomePage> {
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
         ),
-        isSearchable: true,
+
+        // Favorites section customization
+        showFavoritesSection: true,
+        favoritesTitle: 'My Favorites',
+        favoritesTitleColor: Colors.pinkAccent,
+        favoritesIconColor: Colors.pinkAccent,
+        favoritesChipBackgroundColor: Colors.pink.shade50,
+        favoritesChipTextColor: Colors.pink.shade800,
+        favoritesChipAvatarBackgroundColor: Colors.pink.shade100,
+        favoritesChipDeleteIconColor: Colors.pinkAccent,
+
+        // Item customization
+        selectedItemBackgroundColor: Colors.pink.shade50,
+        selectedItemTextColor: Colors.pink.shade800,
+        selectedItemBorderColor: Colors.pinkAccent,
+        selectedItemBorderWidth: 4.0,
+        favoriteIconActiveColor: Colors.amber,
+        favoriteIconInactiveColor: Colors.grey.shade400,
+
+        // Divider customization
+        showDividers: true,
+        dividerColor: Colors.grey.shade200,
+
+        // No results customization
+        noResultsTextColor: Colors.grey.shade600,
+        noResultsIconColor: Colors.grey.shade300,
+
+        // Search highlight customization
+        searchHighlightColor: Colors.pinkAccent,
+        searchHighlightBackgroundColor: Colors.pink.shade50,
+
+        // Native name display
+        showNativeNames: true,
+
+        // Data and callbacks
         initialFavorites: _favoriteLanguages,
         onValuePicked: (Language language) {
           setState(() {
