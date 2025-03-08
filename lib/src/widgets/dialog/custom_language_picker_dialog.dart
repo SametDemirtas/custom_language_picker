@@ -4,6 +4,7 @@ import 'package:custom_language_picker/src/models/language.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_language_picker/src/services/language_servis.dart';
 import 'package:custom_language_picker/typedefs.dart';
+
 /// Provides a modern language picker dialog with search and favorites
 class CustomLanguagePickerDialog extends StatefulWidget {
   /// Callback when a language is selected
@@ -66,6 +67,123 @@ class CustomLanguagePickerDialog extends StatefulWidget {
   /// Whether to group favorites at the top of the list
   final bool showFavoritesFirst;
 
+  /// Search hint text
+  final String searchHintText;
+
+  /// Custom color for the dialog background
+  final Color? dialogBackgroundColor;
+
+  /// Custom color for the header background
+  final Color? headerBackgroundColor;
+
+  /// Custom color for the header text
+  final Color? headerTextColor;
+
+  /// Custom shadow for the header
+  final List<BoxShadow>? headerShadow;
+
+  /// Custom close icon for the header
+  final IconData? closeIcon;
+
+  /// Custom color for the close icon
+  final Color? closeIconColor;
+
+  /// Border radius for the dialog
+  final double dialogBorderRadius;
+
+  /// Elevation for the dialog
+  final double dialogElevation;
+
+  /// Color for the search text
+  final Color? searchTextColor;
+
+  /// Background color for the search field
+  final Color? searchBackgroundColor;
+
+  /// Border color for the search field
+  final Color? searchBorderColor;
+
+  /// Focused border color for the search field
+  final Color? searchFocusedBorderColor;
+
+  /// Color for the search icon
+  final Color? searchIconColor;
+
+  /// Color for the search clear icon
+  final Color? searchClearIconColor;
+
+  /// Border radius for the search field
+  final double searchBorderRadius;
+
+  /// Color for the favorites section title
+  final Color? favoritesTitleColor;
+
+  /// Color for the favorites section icon
+  final Color? favoritesIconColor;
+
+  /// Background color for the favorites chips
+  final Color? favoritesChipBackgroundColor;
+
+  /// Text color for the favorites chips
+  final Color? favoritesChipTextColor;
+
+  /// Avatar background color for the favorites chips
+  final Color? favoritesChipAvatarBackgroundColor;
+
+  /// Icon color for the favorites chip delete icon
+  final Color? favoritesChipDeleteIconColor;
+
+  /// Background color for the selected item
+  final Color? selectedItemBackgroundColor;
+
+  /// Text color for the selected item
+  final Color? selectedItemTextColor;
+
+  /// Left border color for the selected item
+  final Color? selectedItemBorderColor;
+
+  /// Left border width for the selected item
+  final double selectedItemBorderWidth;
+
+  /// Color for the dividers
+  final Color? dividerColor;
+
+  /// Color for the favorite icon when active
+  final Color? favoriteIconActiveColor;
+
+  /// Color for the favorite icon when inactive
+  final Color? favoriteIconInactiveColor;
+
+  /// Color for the no results text
+  final Color? noResultsTextColor;
+
+  /// Color for the no results icon
+  final Color? noResultsIconColor;
+
+  /// Color for the search highlight
+  final Color? searchHighlightColor;
+
+  /// Background color for the search highlight
+  final Color? searchHighlightBackgroundColor;
+
+  /// Whether to show a close button in the header
+  final bool showCloseButton;
+
+  /// Custom style for the dialog
+  final BoxDecoration? dialogDecoration;
+
+  /// Custom style for the header
+  final BoxDecoration? headerDecoration;
+
+  /// Custom style for the search field container
+  final BoxDecoration? searchContainerDecoration;
+
+  /// Custom style for the favorites section container
+  final BoxDecoration? favoritesSectionDecoration;
+
+  /// Custom text to display when no search results are found
+  final String noResultsText;
+
   const CustomLanguagePickerDialog({
     Key? key,
     this.onValuePicked,
@@ -88,6 +206,45 @@ class CustomLanguagePickerDialog extends StatefulWidget {
     this.showNativeNames = true,
     this.showDividers = true,
     this.showFavoritesFirst = true,
+    this.searchHintText = 'Search language',
+    this.dialogBackgroundColor,
+    this.headerBackgroundColor,
+    this.headerTextColor,
+    this.headerShadow,
+    this.closeIcon,
+    this.closeIconColor,
+    this.dialogBorderRadius = 20.0,
+    this.dialogElevation = 8.0,
+    this.searchTextColor,
+    this.searchBackgroundColor,
+    this.searchBorderColor,
+    this.searchFocusedBorderColor,
+    this.searchIconColor,
+    this.searchClearIconColor,
+    this.searchBorderRadius = 12.0,
+    this.favoritesTitleColor,
+    this.favoritesIconColor,
+    this.favoritesChipBackgroundColor,
+    this.favoritesChipTextColor,
+    this.favoritesChipAvatarBackgroundColor,
+    this.favoritesChipDeleteIconColor,
+    this.selectedItemBackgroundColor,
+    this.selectedItemTextColor,
+    this.selectedItemBorderColor,
+    this.selectedItemBorderWidth = 4.0,
+    this.dividerColor,
+    this.favoriteIconActiveColor,
+    this.favoriteIconInactiveColor,
+    this.noResultsTextColor,
+    this.noResultsIconColor,
+    this.searchHighlightColor,
+    this.searchHighlightBackgroundColor,
+    this.showCloseButton = true,
+    this.dialogDecoration,
+    this.headerDecoration,
+    this.searchContainerDecoration,
+    this.favoritesSectionDecoration,
+    this.noResultsText = 'No languages found',
   }) : super(key: key);
 
   @override
@@ -168,54 +325,71 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
 
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(widget.dialogBorderRadius),
       ),
       clipBehavior: Clip.antiAlias,
-      elevation: 8,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: dialogHeight,
-          maxWidth: 400,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Dialog header with title and close button
-            _buildHeader(theme),
+      elevation: widget.dialogElevation,
+      backgroundColor: widget.dialogBackgroundColor,
+      child: widget.dialogDecoration != null
+          ? Container(
+        decoration: widget.dialogDecoration,
+        child: _buildDialogContent(theme, dialogHeight),
+      )
+          : _buildDialogContent(theme, dialogHeight),
+    );
+  }
 
-            // Search field if enabled
-            if (widget.isSearchable) _buildSearchField(theme),
+  Widget _buildDialogContent(ThemeData theme, double dialogHeight) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: dialogHeight,
+        maxWidth: 400,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Dialog header with title and close button
+          _buildHeader(theme),
 
-            // Favorites section if enabled
-            if (widget.showFavoritesSection &&
-                _languageService.favorites.isNotEmpty &&
-                _searchQuery.isEmpty)
-              _buildFavoritesSection(theme),
+          // Search field if enabled
+          if (widget.isSearchable) _buildSearchField(theme),
 
-            // Language list
-            Flexible(
-              child: _filteredLanguages.isEmpty
-                  ? widget.searchEmptyView ?? _buildEmptyView(theme)
-                  : _buildLanguageList(theme),
-            ),
-          ],
-        ),
+          // Favorites section if enabled
+          if (widget.showFavoritesSection &&
+              _languageService.favorites.isNotEmpty &&
+              _searchQuery.isEmpty)
+            _buildFavoritesSection(theme),
+
+          // Language list
+          Flexible(
+            child: _filteredLanguages.isEmpty
+                ? widget.searchEmptyView ?? _buildEmptyView(theme)
+                : _buildLanguageList(theme),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildHeader(ThemeData theme) {
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.primary,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+    final headerBg = widget.headerBackgroundColor ?? theme.colorScheme.primary;
+    final headerText = widget.headerTextColor ?? theme.colorScheme.onPrimary;
+    final closeIconColor = widget.closeIconColor ?? theme.colorScheme.onPrimary;
+    final closeIconData = widget.closeIcon ?? Icons.close;
+
+    final defaultShadow = [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        blurRadius: 4,
+        offset: const Offset(0, 2),
+      ),
+    ];
+
+    final headerContainer = Container(
+      decoration: widget.headerDecoration ?? BoxDecoration(
+        color: headerBg,
+        boxShadow: widget.headerShadow ?? defaultShadow,
       ),
       padding: widget.titlePadding ?? const EdgeInsets.fromLTRB(20, 16, 12, 16),
       child: Row(
@@ -225,38 +399,50 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
                 Text(
                   widget.titleText ?? 'Select Language',
                   style: theme.textTheme.titleLarge?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+                    color: headerText,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.close,
-              color: theme.colorScheme.onPrimary,
+          if (widget.showCloseButton)
+            IconButton(
+              icon: Icon(
+                closeIconData,
+                color: closeIconColor,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+              splashRadius: 24,
             ),
-            onPressed: () => Navigator.of(context).pop(),
-            splashRadius: 24,
-          ),
         ],
       ),
     );
+
+    return headerContainer;
   }
 
   Widget _buildSearchField(ThemeData theme) {
-    return Padding(
+    final searchTextColor = widget.searchTextColor ?? theme.textTheme.bodyLarge?.color;
+    final searchBgColor = widget.searchBackgroundColor ?? theme.colorScheme.surface;
+    final searchBorderColor = widget.searchBorderColor ?? theme.colorScheme.outline.withOpacity(0.3);
+    final searchFocusedBorderColor = widget.searchFocusedBorderColor ?? theme.colorScheme.primary;
+    final searchIconColor = widget.searchIconColor ?? theme.colorScheme.primary.withOpacity(0.7);
+    final searchClearIconColor = widget.searchClearIconColor ?? theme.colorScheme.onSurface.withOpacity(0.7);
+    final cursorColor = widget.searchCursorColor ?? theme.colorScheme.primary;
+
+    return Container(
+      decoration: widget.searchContainerDecoration,
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: TextField(
         controller: _searchController,
         focusNode: _searchFocusNode,
         decoration: widget.searchInputDecoration ??
             InputDecoration(
-              hintText: 'Search language',
-              prefixIcon: const Icon(Icons.search),
-              prefixIconColor: theme.colorScheme.primary.withOpacity(0.7),
+              hintText: widget.searchHintText,
+              prefixIcon: Icon(Icons.search, color: searchIconColor),
+              prefixIconColor: searchIconColor,
               suffixIcon: _searchQuery.isNotEmpty
                   ? IconButton(
-                icon: const Icon(Icons.clear),
+                icon: Icon(Icons.clear, color: searchClearIconColor),
                 onPressed: () {
                   setState(() {
                     _searchController.clear();
@@ -267,23 +453,23 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
               )
                   : null,
               filled: true,
-              fillColor: theme.colorScheme.surface,
+              fillColor: searchBgColor,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(widget.searchBorderRadius),
                 borderSide: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.5),
+                  color: searchBorderColor,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(widget.searchBorderRadius),
                 borderSide: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.3),
+                  color: searchBorderColor,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(widget.searchBorderRadius),
                 borderSide: BorderSide(
-                  color: theme.colorScheme.primary,
+                  color: searchFocusedBorderColor,
                   width: 2,
                 ),
               ),
@@ -292,8 +478,8 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
                 vertical: 12,
               ),
             ),
-        cursorColor: widget.searchCursorColor ?? theme.colorScheme.primary,
-        style: theme.textTheme.bodyLarge,
+        cursorColor: cursorColor,
+        style: theme.textTheme.bodyLarge?.copyWith(color: searchTextColor),
         onChanged: (value) {
           setState(() {
             _searchQuery = value;
@@ -305,108 +491,123 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
   }
 
   Widget _buildFavoritesSection(ThemeData theme) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 16, 8),
-          child: Row(
-            children: [
-              Icon(
-                Icons.star_rounded,
-                size: 18,
-                color: theme.colorScheme.primary,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                widget.favoritesTitle,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.bold,
+    final favoritesTitleColor = widget.favoritesTitleColor ?? theme.colorScheme.primary;
+    final favoritesIconColor = widget.favoritesIconColor ?? theme.colorScheme.primary;
+    final favChipBgColor = widget.favoritesChipBackgroundColor ?? theme.colorScheme.primaryContainer.withOpacity(0.7);
+    final favChipTextColor = widget.favoritesChipTextColor ?? theme.textTheme.bodyMedium?.color;
+    final favChipAvatarBgColor = widget.favoritesChipAvatarBackgroundColor ?? theme.colorScheme.primaryContainer;
+    final favChipDeleteIconColor = widget.favoritesChipDeleteIconColor ?? theme.colorScheme.primary;
+
+    return Container(
+      decoration: widget.favoritesSectionDecoration,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 16, 8),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.star_rounded,
+                  size: 18,
+                  color: favoritesIconColor,
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 64,
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
+                const SizedBox(width: 8),
+                Text(
+                  widget.favoritesTitle,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: favoritesTitleColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _languageService.favorites.length,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemBuilder: (context, index) {
-                final language = _languageService.favorites[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        _languageService.selectLanguage(language);
-                        if (widget.onValuePicked != null) {
-                          widget.onValuePicked!(language);
-                        }
-                        Navigator.pop(context);
-                      },
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Chip(
-                          backgroundColor: theme.colorScheme.primaryContainer.withOpacity(0.7),
-                          side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          avatar: CircleAvatar(
-                            backgroundColor: theme.colorScheme.primaryContainer,
-                            child: Text(language.flagEmoji),
-                          ),
-                          label: Text(
-                            language.name,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w500,
+          ),
+          SizedBox(
+            height: 64,
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                },
+              ),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _languageService.favorites.length,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                itemBuilder: (context, index) {
+                  final language = _languageService.favorites[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          _languageService.selectLanguage(language);
+                          if (widget.onValuePicked != null) {
+                            widget.onValuePicked!(language);
+                          }
+                          Navigator.pop(context);
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Chip(
+                            backgroundColor: favChipBgColor,
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
                             ),
+                            avatar: CircleAvatar(
+                              backgroundColor: favChipAvatarBgColor,
+                              child: Text(language.flagEmoji),
+                            ),
+                            label: Text(
+                              language.name,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: favChipTextColor,
+                              ),
+                            ),
+                            deleteIcon: Icon(
+                              Icons.star,
+                              size: 18,
+                              color: favChipDeleteIconColor,
+                            ),
+                            onDeleted: () {
+                              setState(() {
+                                _languageService.toggleFavorite(language);
+                                _updateDisplayedLanguages();
+                              });
+                            },
                           ),
-                          deleteIcon: Icon(
-                            Icons.star,
-                            size: 18,
-                            color: theme.colorScheme.primary,
-                          ),
-                          onDeleted: () {
-                            setState(() {
-                              _languageService.toggleFavorite(language);
-                              _updateDisplayedLanguages();
-                            });
-                          },
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        if (widget.showDividers) const Divider(height: 1),
-      ],
+          if (widget.showDividers) Divider(
+            height: 1,
+            color: widget.dividerColor ?? theme.dividerColor.withOpacity(0.5),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildLanguageList(ThemeData theme) {
+    final customDividerColor = widget.dividerColor ?? theme.dividerColor.withOpacity(0.5);
 
     return ListView.separated(
       controller: _scrollController,
       itemCount: _filteredLanguages.length,
       shrinkWrap: true,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 8,
         bottom: 16,
         left: 0,
@@ -419,17 +620,16 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
           thickness: 0.5,
           indent: 68,
           endIndent: 0,
-          color: theme.dividerColor.withOpacity(0.5),
+          color: customDividerColor,
         );
       },
       itemBuilder: (context, index) {
         final language = _filteredLanguages[index];
         final bool isSelected = _languageService.selectedLanguage?.code == language.code;
+        final selectedBgColor = widget.selectedItemBackgroundColor ?? theme.colorScheme.primaryContainer.withOpacity(0.3);
 
         return Material(
-          color: isSelected
-              ? theme.colorScheme.primaryContainer.withOpacity(0.3)
-              : Colors.transparent,
+          color: isSelected ? selectedBgColor : Colors.transparent,
           child: InkWell(
             onTap: () {
               _languageService.selectLanguage(language);
@@ -452,6 +652,13 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
   }
 
   Widget _buildDefaultLanguageItem(Language language, ThemeData theme, bool isSelected) {
+    final selectedTextColor = widget.selectedItemTextColor ?? theme.colorScheme.primary;
+    final selectedBorderColor = widget.selectedItemBorderColor ?? theme.colorScheme.primary;
+    final favoriteActiveColor = widget.favoriteIconActiveColor ?? Colors.amber;
+    final favoriteInactiveColor = widget.favoriteIconInactiveColor ?? theme.colorScheme.onSurfaceVariant.withOpacity(0.5);
+    final highlightColor = widget.searchHighlightColor ?? theme.colorScheme.primary;
+    final highlightBgColor = widget.searchHighlightBackgroundColor ?? theme.colorScheme.primaryContainer.withOpacity(0.3);
+
     // Show highlight for matches when searching
     Widget buildHighlightedText(String text, TextStyle? style) {
       if (_searchQuery.isEmpty) {
@@ -484,8 +691,8 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
           text: text.substring(indexOfMatch, indexOfMatch + _searchQuery.length),
           style: style?.copyWith(
             fontWeight: FontWeight.bold,
-            color: theme.colorScheme.primary,
-            backgroundColor: theme.colorScheme.primaryContainer.withOpacity(0.3),
+            color: highlightColor,
+            backgroundColor: highlightBgColor,
           ),
         ));
 
@@ -511,8 +718,8 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
         border: isSelected
             ? Border(
           left: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 4,
+            color: selectedBorderColor,
+            width: widget.selectedItemBorderWidth,
           ),
         )
             : null,
@@ -538,7 +745,7 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
                   theme.textTheme.bodyLarge?.copyWith(
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                     color: isSelected
-                        ? theme.colorScheme.primary
+                        ? selectedTextColor
                         : theme.textTheme.bodyLarge?.color,
                   ),
                 ),
@@ -548,7 +755,7 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
                     language.nativeName,
                     theme.textTheme.bodySmall?.copyWith(
                       color: isSelected
-                          ? theme.colorScheme.primary.withOpacity(0.7)
+                          ? selectedTextColor.withOpacity(0.7)
                           : theme.textTheme.bodySmall?.color?.withOpacity(0.7),
                     ),
                   ),
@@ -559,7 +766,7 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
           IconButton(
             icon: Icon(
               language.isFavorite ? Icons.star_rounded : Icons.star_outline_rounded,
-              color: language.isFavorite ? Colors.amber : theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+              color: language.isFavorite ? favoriteActiveColor : favoriteInactiveColor,
               size: 24,
             ),
             onPressed: () => _toggleFavorite(language),
@@ -579,6 +786,9 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
   }
 
   Widget _buildEmptyView(ThemeData theme) {
+    final noResultsTextColor = widget.noResultsTextColor ?? theme.colorScheme.onSurface.withOpacity(0.7);
+    final noResultsIconColor = widget.noResultsIconColor ?? theme.colorScheme.onSurface.withOpacity(0.3);
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -588,21 +798,14 @@ class CustomLanguagePickerDialogState extends State<CustomLanguagePickerDialog> 
             Icon(
               Icons.search_off_rounded,
               size: 64,
-              color: theme.colorScheme.onSurface.withOpacity(0.3),
+              color: noResultsIconColor,
             ),
             const SizedBox(height: 16),
             Text(
-              'No languages found',
+              widget.noResultsText,
               style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: noResultsTextColor,
                 fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Try a different search term',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
               ),
             ),
           ],

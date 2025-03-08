@@ -4,15 +4,16 @@ A highly customizable language picker for Flutter applications with search funct
 <p align="center">
   <img src="screenshots/preview.png" width="300" alt="Preview">
 </p>
+
 ## Features
 
 - 🌎 Support for 60+ languages with native names and flag emojis
 - 🔍 Powerful search functionality
 - ⭐ Favorites system to quickly access preferred languages
 - 🎨 Three UI variants:
-    - Material Design dropdown
-    - Material Design dialog
-    - Cupertino style picker
+  - Material Design dropdown
+  - Material Design dialog
+  - Cupertino style picker
 - 🎭 Fully customizable appearance
 - 🔄 Simple callback system for language selection
 - 📱 Responsive design for different screen sizes
@@ -22,25 +23,27 @@ A highly customizable language picker for Flutter applications with search funct
   <img src="screenshots/dialog.png" width="250" alt="Dialog">
   <img src="screenshots/cupertino.png" width="250" alt="Cupertino">
 </p>
+
 ## Getting Started
 
 Add the package to your `pubspec.yaml`:
 
-
+```yaml
 dependencies:
-  custom_language_picker: ^0.2.0
-  
-  
-  
+  custom_language_picker: ^0.3.0
+```
+
 Then import it in your Dart code:
+```dart
 import 'package:custom_language_picker/custom_language_picker.dart';
+```
 
-
-Additional Information
+## Additional Information
 
 Supported languages: check the Languages.defaultLanguages list for all supported languages
 Contributions are welcome! Please feel free to submit a Pull Request
 Report issues or suggest features on the GitHub repository
 
-License
+## License
+
 This package is available under the MIT License.
