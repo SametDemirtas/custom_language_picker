@@ -1,6 +1,6 @@
 name: custom_language_picker
 description: "A customizable language picker for Flutter with modern UI, storage support, and emoji flags."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/SametDemirtas/custom_language_picker
 
 environment:
